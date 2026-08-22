@@ -1,0 +1,56 @@
+name: Bug report
+description: Something isn't behaving as expected
+labels: [bug]
+body:
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Storage backend
+      options:
+        - Redis
+        - Caffeine
+        - Custom (own IdempotencyStorage implementation)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: idempotency-kit version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: "@Idempotent / IdempotencyManager configuration"
+      description: >
+        ttlMs, concurrentWaitTimeoutMs, onConcurrent, and roughly how long the annotated
+        method actually takes to execute. Most surprising behavior around duplicate
+        results traces back to ttlMs vs. real execution time.
+      render: java
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Ideally a minimal annotated method + the requests you fired (single vs. concurrent).
+    validations:
+      required: true
